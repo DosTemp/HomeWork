@@ -5,6 +5,8 @@ import https from 'https';
 import var1 from './var1.js';
 import var2 from './var2.js';
 
+const serverPort = 8081;
+const serverHost = '127.0.0.1'
 
 http.createServer(function (req, res) {
   
@@ -16,13 +18,13 @@ http.createServer(function (req, res) {
     //console.log(result);
     res.writeHead(200, {      
       'Content-Type': 'text/html',
-      'Content-Length': result.length,
+      'Content-Length': Buffer.byteLength(result),
       'Expires': new Date().toUTCString()
     });
     res.end(result);
   }).catch(err => {console.log(err)});
   
-}).listen(8081);
+}).listen(serverPort,serverHost,() => console.log(`Server running at http://${serverHost}:${serverPort}/`));
 
 function checkGatwayAvailability(callback) {
   return new Promise((resolve, reject) => {
@@ -33,8 +35,8 @@ function checkGatwayAvailability(callback) {
 
 
 function minHtml(callback) {
-  let header = '404';
-  let body = '404';
+  let header = '<title>404</title>';
+  let body = '<a href="/1">exchange rates 1</a></br><a href="/2">exchange rates 2</a>';
   let out =  '<!DOCTYPE html>' + '<html><head>' + header + '</head><body>' + body + '</body></html>';
   callback(out);
   return out;

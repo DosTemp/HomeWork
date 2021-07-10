@@ -3,8 +3,8 @@ import querystring from 'querystring';
 
 export default function (callback) {
     var postData = querystring.stringify({
-        // 'Date':'2021-07-12',
-        'Date':'12.07.2021',
+        'Date':(new Date()).toISOString().slice(0,10),
+        //'Date':'12.07.2021',
         'Type':'Day',
         'X-Requested-With':'XMLHttpRequest'
     });
@@ -37,7 +37,7 @@ export default function (callback) {
             // console.log("req.data: "+req.data);
             // console.log("str: "+str);
             let out =  '<!DOCTYPE html>' 
-            + '<html><head>Var2</head><body>' 
+            + '<html><head><meta charset="utf-8" /></head><body>' 
             + str + '</body></html>';
             callback(out) 
             return out
